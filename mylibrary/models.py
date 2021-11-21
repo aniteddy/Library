@@ -19,7 +19,7 @@ class Publishers(models.Model):
 
 class Books(models.Model):
     Id = models.IntegerField('Id')
-    Title = models.CharField('Title', max_length=500)
+    Title = models.CharField('Title', max_length=255)
     AuthorId = models.ManyToManyField(Authors, verbose_name='AuthorId', related_name='AuthorId')
     GenreId = models.ManyToManyField(Genres, verbose_name='GenreId', related_name='GenreId')
     PublishDate = models.DateTimeField('PublishDate')
