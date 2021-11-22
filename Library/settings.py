@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-c19bf1a%p*$zz8!p5gs+vmt)9$%67c-ke$zn6$f%3t*u^!(8g!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'mylibrary',
-    'django-filters',
+    'django_filters',
+    'six',
 ]
 
 #не рекомендуется делать так
