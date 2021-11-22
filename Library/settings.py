@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'mylibrary',
-    'django_filters',
-    'six',
+    #django_filters',
 ]
 
 #не рекомендуется делать так
