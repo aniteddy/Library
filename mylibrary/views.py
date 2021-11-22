@@ -1,4 +1,4 @@
-from django.http import request
+#from django.http import request
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -7,7 +7,7 @@ from django.http.response import JsonResponse
 from mylibrary.models import Authors, Genres, Books, Publishers
 from mylibrary.serializers import AuthorsSerializer, GenresSerializer,BooksSerializer,PublishersSerializer
 
-# Create your views here.
+# Create your views here
 
 @csrf_exempt
 def BooksApi(request, id=0):
