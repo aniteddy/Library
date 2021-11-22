@@ -1,4 +1,4 @@
-#from django.http import request
+from django.http import request
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -24,7 +24,7 @@ def BooksApi(request, id=0):
         return JsonResponse('Failed to Add', safe=False)
     elif request.method=='PUT':
         books_data=JSONParser().parse(request)
-        books = Books,object.get(Id = books_data['Id'])
+        books = Books.objects.get(Title = books_data['Title'])
         books_serializer=BooksSerializer(books,data=books_data)
         if books_serializer.is_valid():
             books_serializer.save()
