@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'mylibrary'
+    'mylibrary',
+    'django-filters',
 ]
 
 #не рекомендуется делать так
