@@ -10,7 +10,7 @@ from mylibrary.serializers import AuthorsSerializer, GenresSerializer,BooksSeria
 # Create your views here.
 
 @csrf_exempt
-def BooksApi(reques, id=0):
+def BooksApi(request, id=0):
     if request.method=='GET':
         books = Books.objects.all()
         books_serializer = BooksSerializer(books,many=True)
