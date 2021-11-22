@@ -7,19 +7,19 @@ from mylibrary.models import Authors, Genres, Books, Publishers
 class AuthorsSerializer(serializers.ModelSerializer):
     class Meta:
         model=Authors
-        fields=('Name', 'BirthDate')
+        fields=('id','Name', 'BirthDate')
 
 class GenresSerializer(serializers.ModelSerializer):
     class Meta:
         model=Genres
-        fields=( 'Name')
+        fields=( 'id','Name')
 
 class BooksSerializer(serializers.ModelSerializer):
     class Meta:
         model=Books
-        fields=( 'Title', 'AuthorId', 'GenreId', 'PublishDate', 'PublisherId')
+        fields=( 'id','Title', 'AuthorId', 'GenreId', 'PublishDate', 'PublisherId')
 
 class PublishersSerializer(serializers.ModelSerializer):
     class Meta:
         model=Publishers
-        fields=( 'Name', 'Address')
+        fields=( 'id','Name', 'Address')
