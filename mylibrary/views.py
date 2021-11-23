@@ -15,13 +15,24 @@ def BooksAPIID(request, pk):
         book = Books.objects.get(id=pk)
         books_serializer = BooksSerializer(book,many=False)
         return JsonResponse(books_serializer.data)
-
 @csrf_exempt
 def AuthorsAPIID(request, pk):
     if request.method=='GET':
         author = Authors.objects.get(id=pk)
         authors_serializer = AuthorsSerializer(author,many=False)
         return JsonResponse(authors_serializer.data)
+@csrf_exempt
+def GenresAPIID(request, pk):
+    if request.method=='GET':
+        genre = Genres.objects.get(id=pk)
+        genres_serializer = GenresSerializer(genre,many=False)
+        return JsonResponse(genres_serializer.data)
+@csrf_exempt
+def PublishersAPIID(request, pk):
+    if request.method=='GET':
+        publisher = Publishers.objects.get(id=pk)
+        publishers_serializer = PublishersSerializer(publisher,many=False)
+        return JsonResponse(publishers_serializer.data)
 
 @csrf_exempt
 def BooksAPI(request):
@@ -29,15 +40,6 @@ def BooksAPI(request):
         books = Books.objects.all()
         books_serializer = BooksSerializer(books,many=True)
         return JsonResponse(books_serializer.data, safe=False)
-    #elif request.method=='GET':
-       # books_data=JSONParser().parse(request)
-       # id=request.books_data['id']
-       # print(id)
-
-        #books = Books.objects.all()
-       # books_serializer = BooksSerializer(books,many=True)
-        #return JsonResponse(books_serializer.data, safe=False)
-
     elif request.method=='POST':
         books_data=JSONParser().parse(request)
         books_serializer= BooksSerializer(data=books_data)
@@ -116,8 +118,8 @@ def GenresAPI(request, id=0):
 
 
 @csrf_exempt
-def PublishersAPI(request, id=0):
-    if request.method=='GET':
+def PublishersAPI(request):
+    if request.method=='LIST':
         publishers = Publishers.objects.all()
         publishers_serializer =PublishersSerializer(publishers,many=True)
         return JsonResponse(publishers_serializer.data, safe=False)
