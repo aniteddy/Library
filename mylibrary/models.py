@@ -20,7 +20,10 @@ class Publishers(models.Model):
 class Books(models.Model):
     #Id = models.IntegerField('Id')
     Title = models.CharField('Title', max_length=255)
-    AuthorId = models.CharField('AuthorId', max_length=255)
-    GenreId = models.CharField('GenreId', max_length=255)
+    #AuthorId = models.CharField('AuthorId', max_length=255)
+    AuthorId = models.ForeignKey('Authors', on_delete=models.SET_NULL, null=True)
+    #GenreId = models.CharField('GenreId', max_length=255)
+    GenreId = models.ForeignKey('Genres', on_delete=models.SET_NULL, null=True)
     PublishDate = models.DateTimeField('PublishDate')
-    PublisherId = models.CharField('PublisherId', max_length=255)
+    #PublisherId = models.CharField('PublisherId', max_length=255)
+    PublisherId = models.ForeignKey('Publishers', on_delete=models.SET_NULL, null=True)
