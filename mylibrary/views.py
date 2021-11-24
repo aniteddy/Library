@@ -8,6 +8,17 @@ from mylibrary.models import Authors, Genres, Books, Publishers
 from mylibrary.serializers import AuthorsSerializer, GenresSerializer,BooksSerializer,PublishersSerializer
 
 # Create your views here
+@csrf_exempt
+def BooksByGenreAPI(request, NameGenre):
+    if request.method=='GET':
+        #genre = Genres.objects.filter(Name=NameGenre).values_list('id', flat =True)[0]
+        #genre = Genres.objects.filter(Name=NameGenre).select_related('Books')
+        #book = Books.objects.filter(Genre_id=genre).all()
+        book=Books.objects.filter(Genre__Name=NameGenre)
+        #book= Books.objects.filter(GenreId=genre)
+        #book= Books.objects.select_related()
+        books_serializer = BooksSerializer(book,many=True)
+        return JsonResponse(books_serializer.data, safe=False)
 
 @csrf_exempt
 def BooksAPIID(request, pk):
