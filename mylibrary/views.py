@@ -9,6 +9,12 @@ from mylibrary.serializers import AuthorsSerializer, GenresSerializer,BooksSeria
 
 # Create your views here
 @csrf_exempt
+def CountBooksbyPublisherAPI(request, NamePublisher):
+    if request.method=='GET':
+        book=Books.objects.filter(Publisher__Name=NamePublisher).count()
+        return JsonResponse(book, safe=False)
+
+@csrf_exempt
 def BooksByGenreAPI(request, NameGenre):
     if request.method=='GET':
         #особый метод, который работает
