@@ -24,3 +24,4 @@ class Books(models.Model):
     Genre = models.ForeignKey('Genres',models.DO_NOTHING, max_length=250)
     PublishDate = models.DateTimeField('PublishDate')
     Publisher = models.ForeignKey('Publishers',models.DO_NOTHING, max_length=250)
+

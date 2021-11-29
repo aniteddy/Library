@@ -5,7 +5,30 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
 from mylibrary.models import Authors, Genres, Books, Publishers
-from mylibrary.serializers import AuthorsSerializer, GenresSerializer,BooksSerializer,PublishersSerializer
+from mylibrary.serializers import  AuthorsSerializer, GenresSerializer,BooksSerializer,PublishersSerializer, AllBooksInformationSerializer
+
+
+
+#Заполнение таблицы в БД
+def AddDatatoDB():
+    #Authors
+    Mary = Authors.objects.create(Name = 'Mary', BirthDate = '1979-11-29 00:00:30')
+    Barry = Authors.objects.create( Name = 'Barry', BirthDate = '1980-11-29 00:00:30')
+    Pin = Authors.objects.create(Name = 'Pin', BirthDate = '1955-11-29 00:00:30')
+    #Genres
+    Story = Genres.objects.create(Name='Story')
+    Fantasy = Genres.objects.create(Name='Fantasy')
+    FairyTail = Genres.objects.create(Name='FairyTail')
+    # Publishers
+    Kokoriki = Publishers.objects.create(Name = 'Kokoriki', Address = 'Shararam')
+    Park = Publishers.objects.create(Name = 'Park', Address = 'Seven street')
+    #Books
+    Bbm = Books.objects.create(Title = 'Bee bite me', PublishDate ='2000-11-29 00:00:30', Author_id = 48, Genre_id = 445, Publisher_id = 2223)
+    Raspberry = Books.objects.create(Title = 'Raspberry', PublishDate ='2010-11-29 00:00:30', Author_id = 48, Genre_id = 445, Publisher_id = 2223)
+    Amber = Books.objects.create(Title = 'Amber', PublishDate ='2000-11-29 00:00:30', Author_id = 47, Genre_id = 446, Publisher_id = 2224)
+    Bleach = Books.objects.create(Title = 'Bleach', PublishDate ='2010-11-30 00:00:30', Author_id = 49, Genre_id = 447, Publisher_id = 2224)
+
+#AddDatatoDB()
 
 # Create your views here
 @csrf_exempt
@@ -32,12 +55,19 @@ def BooksByAuthorAPI(request, NameAuthor):
         return JsonResponse(books_serializer.data, safe=False)
 
 
+#@csrf_exempt
+#def BooksAPIID(request, pk):
+ #   if request.method=='GET':
+ #       book = Books.objects.get(id=pk)
+ #       books_serializer = BooksSerializer(book,many=False)
+  #      return JsonResponse(books_serializer.data)
+
 @csrf_exempt
 def BooksAPIID(request, pk):
     if request.method=='GET':
         book = Books.objects.get(id=pk)
-        books_serializer = BooksSerializer(book,many=False)
-        return JsonResponse(books_serializer.data)
+        book_serializer = AllBooksInformationSerializer(book, many=False)
+        return JsonResponse(book_serializer.data, safe=False)
 @csrf_exempt
 def AuthorsAPIID(request, pk):
     if request.method=='GET':
