@@ -4,31 +4,30 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from mylibrary.models import Authors, Genres, Books, Publishers
-from mylibrary.serializers import  AuthorsSerializer, GenresSerializer,BooksSerializer,PublishersSerializer, AllBooksInformationSerializer
+from mylibrary.models import Authors, Genres, Books, Publishers, Tags
+from mylibrary.serializers import  AuthorsSerializer, GenresSerializer,BooksSerializer,PublishersSerializer, AllBooksInformationSerializer, TagsSerializer
+
+# Look up Q objects for combining different fields in a single query
+from django.db.models import Q
 
 
+# Create your views here
+@csrf_exempt
+def BooksByAllFieldsAPI(request, Name):
+    if request.method=='GET':
+        book = Books.objects.filter(Q(Tag__Name=Name) | Q(Genre__Name=Name) | Q(Publisher__Name=Name) | Q(Author__Name=Name) | Q(Publisher__Address=Name)  | Q(Title=Name) )
+        
+        books_serializer = BooksSerializer(book,many=True)
+        
+        return JsonResponse(books_serializer.data, safe=False)
 
-#Заполнение таблицы в БД
-def AddDatatoDB():
-    #Authors
-    Mary = Authors.objects.create(Name = 'Mary', BirthDate = '1979-11-29 00:00:30')
-    Barry = Authors.objects.create( Name = 'Barry', BirthDate = '1980-11-29 00:00:30')
-    Pin = Authors.objects.create(Name = 'Pin', BirthDate = '1955-11-29 00:00:30')
-    #Genres
-    Story = Genres.objects.create(Name='Story')
-    Fantasy = Genres.objects.create(Name='Fantasy')
-    FairyTail = Genres.objects.create(Name='FairyTail')
-    # Publishers
-    Kokoriki = Publishers.objects.create(Name = 'Kokoriki', Address = 'Shararam')
-    Park = Publishers.objects.create(Name = 'Park', Address = 'Seven street')
-    #Books
-    Bbm = Books.objects.create(Title = 'Bee bite me', PublishDate ='2000-11-29 00:00:30', Author_id = 48, Genre_id = 445, Publisher_id = 2223)
-    Raspberry = Books.objects.create(Title = 'Raspberry', PublishDate ='2010-11-29 00:00:30', Author_id = 48, Genre_id = 445, Publisher_id = 2223)
-    Amber = Books.objects.create(Title = 'Amber', PublishDate ='2000-11-29 00:00:30', Author_id = 47, Genre_id = 446, Publisher_id = 2224)
-    Bleach = Books.objects.create(Title = 'Bleach', PublishDate ='2010-11-30 00:00:30', Author_id = 49, Genre_id = 447, Publisher_id = 2224)
-
-#AddDatatoDB()
+# Create your views here
+@csrf_exempt
+def BooksByTagAPI(request, TagName):
+    if request.method=='GET':
+        book = Books.objects.filter(Tag__Name=TagName)
+        books_serializer = BooksSerializer(book,many=True)
+        return JsonResponse(books_serializer.data, safe=False)
 
 # Create your views here
 @csrf_exempt
