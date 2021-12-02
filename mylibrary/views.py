@@ -4,14 +4,41 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from mylibrary.models import Authors, Genres, Books, Publishers
-from mylibrary.serializers import AuthorsSerializer, GenresSerializer,BooksSerializer,PublishersSerializer
+from mylibrary.models import Authors, Genres, Books, Publishers, Tags
+from mylibrary.serializers import  AuthorsSerializer, GenresSerializer,BooksSerializer,PublishersSerializer, AllBooksInformationSerializer, TagsSerializer
+
+# Look up Q objects for combining different fields in a single query
+from django.db.models import Q
+
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
+# Create your views here
+@csrf_exempt
+def BooksByAllFieldsAPI(request, Name):
+    if request.method=='GET':
+        book = Books.objects.filter(Q(Tag__Name=Name) | Q(Genre__Name=Name) | Q(Publisher__Name=Name) | Q(Author__Name=Name) | Q(Publisher__Address=Name)  | Q(Title=Name) )
+        books_serializer = BooksSerializer(book,many=True)
+        logger.info("Search book by match in a field")
+        return JsonResponse(books_serializer.data, safe=False)
+
+# Create your views here
+@csrf_exempt
+def BooksByTagAPI(request, TagName):
+    if request.method=='GET':
+        book = Books.objects.filter(Tag__Name=TagName)
+        books_serializer = BooksSerializer(book,many=True)
+        logger.info("Books by Tag")
+        return JsonResponse(books_serializer.data, safe=False)
 
 # Create your views here
 @csrf_exempt
 def CountBooksbyPublisherAPI(request, NamePublisher):
     if request.method=='GET':
         book=Books.objects.filter(Publisher__Name=NamePublisher).count()
+        logger.info("Number of books by publishing")
         return JsonResponse(book, safe=False)
 
 @csrf_exempt
@@ -32,12 +59,19 @@ def BooksByAuthorAPI(request, NameAuthor):
         return JsonResponse(books_serializer.data, safe=False)
 
 
+#@csrf_exempt
+#def BooksAPIID(request, pk):
+ #   if request.method=='GET':
+ #       book = Books.objects.get(id=pk)
+ #       books_serializer = BooksSerializer(book,many=False)
+  #      return JsonResponse(books_serializer.data)
+
 @csrf_exempt
 def BooksAPIID(request, pk):
     if request.method=='GET':
         book = Books.objects.get(id=pk)
-        books_serializer = BooksSerializer(book,many=False)
-        return JsonResponse(books_serializer.data)
+        book_serializer = AllBooksInformationSerializer(book, many=False)
+        return JsonResponse(book_serializer.data, safe=False)
 @csrf_exempt
 def AuthorsAPIID(request, pk):
     if request.method=='GET':
