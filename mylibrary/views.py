@@ -11,14 +11,16 @@ from mylibrary.serializers import  AuthorsSerializer, GenresSerializer,BooksSeri
 from django.db.models import Q
 
 
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
 # Create your views here
 @csrf_exempt
 def BooksByAllFieldsAPI(request, Name):
     if request.method=='GET':
         book = Books.objects.filter(Q(Tag__Name=Name) | Q(Genre__Name=Name) | Q(Publisher__Name=Name) | Q(Author__Name=Name) | Q(Publisher__Address=Name)  | Q(Title=Name) )
-        
         books_serializer = BooksSerializer(book,many=True)
-        
+        logger.info("Search book by match in a field")
         return JsonResponse(books_serializer.data, safe=False)
 
 # Create your views here
@@ -27,6 +29,7 @@ def BooksByTagAPI(request, TagName):
     if request.method=='GET':
         book = Books.objects.filter(Tag__Name=TagName)
         books_serializer = BooksSerializer(book,many=True)
+        logger.info("Books by Tag")
         return JsonResponse(books_serializer.data, safe=False)
 
 # Create your views here
@@ -34,6 +37,7 @@ def BooksByTagAPI(request, TagName):
 def CountBooksbyPublisherAPI(request, NamePublisher):
     if request.method=='GET':
         book=Books.objects.filter(Publisher__Name=NamePublisher).count()
+        logger.info("Number of books by publishing")
         return JsonResponse(book, safe=False)
 
 @csrf_exempt
