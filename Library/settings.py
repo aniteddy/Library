@@ -17,6 +17,10 @@ from django.core.wsgi import get_wsgi_application
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#log
+import logging
+logging.basicConfig(filename="log-file.log", level=logging.INFO)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -28,6 +32,7 @@ SECRET_KEY = 'django-insecure-c19bf1a%p*$zz8!p5gs+vmt)9$%67c-ke$zn6$f%3t*u^!(8g!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition

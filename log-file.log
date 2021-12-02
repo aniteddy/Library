@@ -1,0 +1,34 @@
+WARNING:django.request:Not Found: /book/publisher/count/1111/
+WARNING:django.request:Not Found: /book/publisher/count/1
+WARNING:django.request:Not Found: /book/publisher/count/Kokoriki
+WARNING:django.request:Not Found: /book/publisher/count/Kokoriki/
+WARNING:django.request:Not Found: /book/publisher/count/Kokoriki/
+INFO:django.utils.autoreload:C:\Users\anite\Library\Library\mylibrary\views.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\anite\Library\Library\mylibrary\views.py changed, reloading.
+ERROR:django.request:Internal Server Error: /book/publisher/count/park/
+Traceback (most recent call last):
+  File "C:\Users\anite\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\anite\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\anite\AppData\Local\Programs\Python\Python39\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\anite\Library\Library\mylibrary\views.py", line 38, in CountBooksbyPublisherAPI
+    logging.getLogger.info("count")
+AttributeError: 'function' object has no attribute 'info'
+INFO:django.utils.autoreload:C:\Users\anite\Library\Library\mylibrary\views.py changed, reloading.
+INFO:root:count
+INFO:django.utils.autoreload:C:\Users\anite\Library\Library\mylibrary\views.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\anite\Library\Library\mylibrary\views.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\anite\Library\Library\mylibrary\migrations\0003_rename_tag_tags.py changed, reloading.
+INFO:root:Number of books by publishing
+INFO:django.utils.autoreload:C:\Users\anite\Library\Library\mylibrary\views.py changed, reloading.
+INFO:root:Number of books by publishing
+INFO:root:Number of books by publishing
+INFO:root:Search book by match in a field
+INFO:root:Search book by match in a field
+INFO:django.utils.autoreload:C:\Users\anite\Library\Library\Library\settings.py changed, reloading.
+INFO:django.utils.autoreload:Watching for file changes with StatReloader
+INFO:root:Search book by match in a field
+INFO:django.utils.autoreload:Watching for file changes with StatReloader
+INFO:root:Search book by match in a field

@@ -10,6 +10,7 @@ from mylibrary.serializers import  AuthorsSerializer, GenresSerializer,BooksSeri
 # Look up Q objects for combining different fields in a single query
 from django.db.models import Q
 
+import logging
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
